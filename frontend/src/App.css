@@ -1,0 +1,291 @@
+.App {
+  /* text-align: center; */
+}
+
+.nav-ul {
+  padding: 3px;
+  margin: 0;
+  background: skyblue;
+  align-items: end;
+}
+.nav-ul li {
+  display: inline-block;
+  padding: 10px;
+
+}
+.nav-ul a {
+  padding: 5px;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* label */
+.label {
+  padding: 13px;
+  display: flex;
+  margin-right: 5px;
+}
+/*  inputbox  */
+.inputbox {
+  padding: 7px;
+  display: block;
+  border: 1px solid #61dafb;
+  width: 300px;
+  margin: 20px;
+}
+.nav-right {
+  text-align: right;
+  margin-right: 30px;
+}
+.invalid-input {
+  color: red;
+  text-align: start;
+  margin: 5px;
+  display: block;
+}
+
+.post-list ul li {
+  display: inline-block;
+  border: 1px solid #61dafb;
+  width: 200px;
+  height: 50px;
+  padding: 1px;
+}
+.post-list ul {
+  margin: 0;
+}
+.footer {
+  position: relative;
+  bottom: 0;
+  background-color: #61dafb;
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+}
+.footer p {
+  margin-bottom: 0px;
+} 
+
+
+.rwtables table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.rwtables td,
+.rwtables th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 22px;
+}
+.rwtables th {
+  background: #f5f5f5;
+}
+.rwtables {
+
+padding: 20px 0
+}
+
+.rwtables h1 {
+  font-size: 38px;
+  line-height: 48px;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+.rwtables h2 {
+  font-size: 28px;
+  line-height: 38px;
+  font-weight: 700;
+  padding-bottom: 15px;
+}
+.rwtables table button {
+  border: 0px;
+  padding: 0px;
+}
+.frstlgn {
+  padding-top: 30px;
+}
+
+.formdatamainsct {
+  padding: 80px 0px;
+}
+
+.formdatamainsct .subscfrm {
+  background: #f5f5f5;
+  padding: 40px;
+  border-radius: 12px;
+}
+
+.formdatamainsct .subscfrm h1 {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 700;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.formdatamainsct .subscfrm .formadatainr {
+  padding-bottom: 12px;
+}
+
+.formdatamainsct .subscfrm .formadatainr label {
+  display: block;
+  text-align: left;
+  padding-bottom: 8px;
+}
+
+.formdatamainsct .subscfrm .formadatainr input.form-control {
+  display: flex;
+  font-size: 14px;
+  line-height: 26px;
+  border-radius: 0px;
+  padding: 10px 10px;
+}
+.sbmtbtn {
+  text-align: left;
+}
+
+.formdatamainsct .subscfrm .sbmtbtn button.sbmt {
+  background: #0a6083;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 11px 20px;
+  border: 0px;
+  color: #fff;
+}
+.formdatamainsct .subscfrm .sbmtbtn button.sbmt:hover {
+  opacity: 0.9;
+}
+.formdatamainsct .subscfrm .formadatainr input.form-control:hover,
+.formdatamainsct .subscfrm .formadatainr input.form-control:focus {
+  box-shadow: 0px 0px;
+}
+
+/*  Applicant Page  */
+
+.applyform {
+  padding: 80px 0px;
+}
+
+.applyform .subscfrm {
+  background: #f5f5f5;
+  padding: 40px;
+  border-radius: 12px;
+}
+
+.applyform .subscfrm h1 {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 700;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.applyform .subscfrm .formadatainr {
+  padding-bottom: 12px;
+}
+
+.applyform .subscfrm .formadatainr label {
+  display: block;
+  text-align: left;
+  padding-bottom: 8px;
+}
+
+.applyform .subscfrm .formadatainr input.form-control {
+  display: flex;
+  font-size: 14px;
+  line-height: 26px;
+  border-radius: 0px;
+  padding: 10px 10px;
+}
+.sbmtbtn {
+  text-align: left;
+}
+
+.applyform .subscfrm .sbmtbtn button.sbmt {
+  background: #0a6083;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 11px 20px;
+  border: 0px;
+  color: #fff;
+}
+.applyform .subscfrm .sbmtbtn button.sbmt:hover {
+  opacity: 0.9;
+}
+.applyform .subscfrm .formadatainr input.form-control:hover,
+.applyform .subscfrm .formadatainr input.form-control:focus {
+  box-shadow: 0px 0px;
+}
+
+
+
+/*  Message Section  */
+.msgcontainer {
+  padding: 80px 0px;
+  display: flex;
+   /* background-image: url("/public/background2.jpg"); */
+
+}
+
+.msgcontainer .subscfrm {
+  background: #f5f5f5;
+  padding: 40px 20px 40px 20px;
+  border-radius: 12px;
+  margin-left: 30px;
+  align-items: center;
+  margin-left: 10px;
+ 
+}
+.msgcontainer .subscfrm h1 {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 700;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.msgcontainer .subscfrm .msgfield {
+  padding-bottom: 12px;
+  margin-left: 30px;
+}
+
+.msgcontainer .subscfrm .msgfield label {
+  display: block;
+  text-align: left;
+  padding-bottom: 8px;
+  font-style: normal;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+}
+
+.msgcontainer .subscfrm .msgfield input.form-control {
+  display: flex;
+  font-size: 14px;
+  line-height: 26px;
+  border-radius: 0px;
+  padding: 10px 10px;
+}
+
+ /* For Input the message  */
+.text-input-area {
+  background-color: #fff;
+  padding: 10px 10px;
+  margin: 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+  .ovflhdn {
+    overflow-x: auto;
+  }
+}
