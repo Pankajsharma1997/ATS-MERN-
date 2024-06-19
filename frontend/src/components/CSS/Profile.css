@@ -1,0 +1,172 @@
+.profile{
+     padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.section-heading{
+     display: flex;
+     flex-direction: row;
+     gap: 20px;
+  
+     
+  
+}
+.section-heading .backbutton {
+  border-radius: 10px;
+  color: #fff;
+  background-color: rgb(107, 109, 238);
+  text-align: center;
+  font-size: larger;
+  text-decoration: none;
+  display: block;
+  width: 80px;
+  margin-left:30px;
+  padding: 2px 3px;
+}
+.profile .section-heading h2{
+    text-align: center;
+    width:100%;
+}
+
+/* Personal details start like name , image etc */
+ .personal_detail{
+    /* background-color: #fff; */
+    margin:20px;
+    padding :5px;
+}
+.personal_detail h2{
+    color: black;
+}
+
+.personal_detail .profile-img-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: left;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.personal_detail .profile-img-wrapper h3{
+  font-weight: 600;
+  color: #000;
+  font-size: 24px;
+  line-height: 34px;
+}
+
+.personal_detail .profile-img-wrapper img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.profile_detail{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+}
+
+.profile_detail h3 {
+    justify-content: space-between;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  color:#4caf50;
+}
+
+.profile_detail p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+.profile_detail a {
+    text-decoration: none;
+    color:#4caf50;
+}
+.profile_detail a:hover {
+    text-decoration: none;
+    color: #ecbc1d;
+      font-size: 25px;
+}
+/* .profile > .row {
+  height: 100vh;
+} */
+
+/* Personal details end  like name , image etc */
+.profile_content .application_detail{
+    /* background-color: #fff; */
+      margin:10px;
+}
+/*  Profile page is end  */
+
+
+/*  Edit Application Start  */
+.edit_application{
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.edit_application .section-heading h3{
+text-align: center;
+width:100%;
+color: #ecbc1d;
+}
+
+.edit_application .row {
+width: 100%;
+display: flex;
+justify-content: center;
+}
+
+.edit_application .application_detail{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+   
+}
+.application_detail p,h5 {
+ font-size: 15px;
+  font-weight: bold;
+  color: #000;
+}
+
+.edit_application .status{
+ margin-left:20px;
+ padding:30px;
+   align-items: center;
+}
+.edit_application .add_availability{
+ background: #0a6083;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 11px 20px;
+  border: 0px;
+  border-radius: 10px;
+  margin: 10px 20px 30px 250px;
+  color: #fff;
+}
+
+.edit_application .add_availability:hover {
+  opacity: 0.9;
+}
+.edit_application .add_availability_save{
+ background: #474001;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 11px 20px;
+  width:20%;
+  border: 0px;
+  border-radius: 10px;
+  margin: 10px 20px 30px 250px;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+.edit_application .row {
+flex-direction: column;
+}
+} 
