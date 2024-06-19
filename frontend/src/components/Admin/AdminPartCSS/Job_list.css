@@ -1,0 +1,31 @@
+
+/* job List area Start  */
+.job_list {
+  background-color: #f4f4f4;
+}
+.job_list  > .row {
+  height: 100vh;
+}
+
+.job_list .single_job {
+  background-color: #fff;
+  padding: 10px 20px;
+  margin: 10px 80px 10px 120px;
+  max-width: 900px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .job_list .single_job {
+    margin: 10px 20px; /* Adjust margins for medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .job_list .single_job {
+    margin: 10px 10px; /* Adjust margins for small screens */
+    padding: 10px 10px; /* Adjust padding for small screens */
+  }
+}
+
+/*  job list area end  */

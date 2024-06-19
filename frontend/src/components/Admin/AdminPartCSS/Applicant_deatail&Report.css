@@ -1,0 +1,132 @@
+
+
+/*  Applicant Details Page Start */
+.applicant_detail_area {
+  background-color: #f5f7fa;
+  margin: 0 auto;
+  height: 100vh;
+}
+.applicant_detail_area .headsection {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.applicant_detail_area .headsection .backbutton {
+  border-radius: 10px;
+  color: #fff;
+  background-color: rgb(204, 134, 3);
+  text-align: center;
+  font-size: larger;
+  text-decoration: none;
+  display: block;
+  width: 80px;
+  margin: 25px;
+  padding: 2px 3px;
+}
+
+.applicant_detail_area .applicantDetail {
+  background-color: #fff;
+  margin: 10px;
+  padding: 30px;
+  border-radius: 20px;
+}
+.applicant_detail_area .applicantDetail h2 {
+  text-align: center;
+  color: rgb(133, 148, 145);
+}
+
+.applicant_detail_area .editDetail {
+  margin: 10px;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.detailpart.profile-img-wrapper img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.detailpart.profile-img-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: left;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.detailpart h3 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.detailpart {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.detailpart p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.detailpart a {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.detailpart.profile-img-wrapper h3 {
+  font-weight: 600;
+  color: #000;
+  font-size: 24px;
+  line-height: 34px;
+}
+
+.applicant_detail_area .editDetail h2 {
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.applicant_detail_area .applicantDetail h2 {
+  text-align: left;
+  color: #000;
+}
+
+.applicant_detail_area > .row {
+  height: 100vh;
+}
+
+/*  Edit and Save buttons  */
+.applicant_detail_area  .editbutton,
+.applicant_detail_area .savebutton {
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  display: block; /* Make buttons block to fill the width */
+  width: 150px; /* Adjust width to be auto for smaller screens */
+  margin: 5px 20px 30px 290px; /* Center buttons on the page */
+}
+
+/*  color for Edit button  */
+.applicant_detail_area .editbutton {
+  background-color: rgb(236, 140, 23);
+}
+
+/*  color for savebutton  */
+.applicant_detail_area  .savebutton {
+  background-color: rgb(204, 61, 35);
+}
+
+/*  Applicant Details Page End  */
+
+/* Report Section Start  */
+.report  > .row {
+  height: 100vh;
+}
+/*  Report Section End  */

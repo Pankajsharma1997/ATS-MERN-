@@ -1,0 +1,143 @@
+
+/*  Job Editing Page  */
+.job_editing_area {
+  margin: 0;
+  padding-bottom: 100px;
+  background-color: #f5f7fa;
+}
+.headsection {
+  display: flex;
+  margin-bottom: 5px;
+}
+.headsection .backbutton {
+  border-radius: 10px;
+  color: #fff;
+  background-color: rgb(107, 109, 238);
+  text-align: center;
+  font-size: larger;
+  text-decoration: none;
+  display: block;
+  width: 80px;
+  margin: 25px;
+  padding: 2px 3px;
+}
+.headsection h3 {
+  margin: 20px 0 30px 350px;
+}
+
+/*  Edit and Save buttons  */
+.job_editing_area .editbutton,
+.job_editing_area .savebutton {
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  display: block; /* Make buttons block to fill the width */
+  width: 150px; /* Adjust width to be auto for smaller screens */
+  margin: 5px 20px 30px 290px; /* Center buttons on the page */
+}
+
+/*  color for Edit button  */
+.job_editing_area .editbutton {
+  background-color: rgb(236, 140, 23);
+}
+
+/*  color for savebutton  */
+.job_editing_area .savebutton {
+  background-color: rgb(204, 61, 35);
+}
+
+/* job Edit  Page Start  */
+.editdetails,
+.editsummery {
+  background-color: #fff;
+  padding: 10px 15px;
+  margin: 5px;
+}
+
+.editdetails h2,
+.editsummery h2,
+.editdetails h3 {
+  color: #524f4f;
+  margin: 4px;
+  font-weight: 700;
+  font-style: normal;
+  font-size: larger;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.editdetails .detailpart,
+.editsummery .summerycontent {
+  padding: 10px;
+  margin: 5px;
+  font-size: larger;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .editdetails h2,
+  .editsummery h2,
+  .editdetails h3 {
+    font-size: medium;
+  }
+
+  .editdetails .detailpart,
+  .editsummery .summerycontent {
+    padding: 5px;
+    font-size: medium;
+  }
+  .job_editing_area .editbutton,
+  .job_editing_area .savebutton {
+    padding: 10px 5px; /* Reduce padding for smaller screens */
+    width: 90%; /* Adjust width to be 90% of the container */
+    margin: 5px auto; /* Keep buttons centered */
+  }
+}
+
+@media (max-width: 768px) {
+  .editdetails,
+  .editsummery {
+    padding: 5px;
+  }
+
+  .editdetails h2,
+  .editsummery h2,
+  .editdetails h3 {
+    font-size: small;
+  }
+
+  .editdetails .detailpart,
+  .editsummery .summerycontent {
+    font-size: small;
+  }
+}
+
+@media (max-width: 576px) {
+  .job_editing_area {
+    padding-bottom: 50px; /* Reduce padding-bottom for very small screens */
+  }
+  .editdetails,
+  .editsummery {
+    padding: 2px;
+    margin: 2px;
+  }
+
+  .editdetails h2,
+  .editsummery h2,
+  .editdetails h3 {
+    font-size: x-small;
+  }
+
+  .editdetails .detailpart,
+  .editsummery .summerycontent {
+    font-size: x-small;
+  }
+
+  .job_editing_area .editbutton,
+  .job_editing_area .savebutton {
+    padding: 10px 2px; /* Further reduce padding for very small screens */
+    font-size: 14px; /* Adjust font size for readability */
+  }
+}
+
+/*  job Edit page End   */
