@@ -39,7 +39,7 @@ const postSchema = new mongoose.Schema({
 
   // 7 vacancy 
   vacancy:{
-    type:String
+    type:Number
   },
 
   // 8 Salary
