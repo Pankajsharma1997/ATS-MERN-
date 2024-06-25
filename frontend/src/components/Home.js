@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
-
-
-// import "react-datepicker/dist/react-datepicker.css";
-
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./myStyles.css";
+import Carousel from "react-bootstrap/Carousel";
 
 
-
-    
+  
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const subscriber = localStorage.getItem('subscriber');
 
-  useEffect(() => {
-    getPosts();
-  }, []);
-
+//  Function for get all post from the db 
   const getPosts = async () => {
     try {
       const response = await axios.get("/all-posts");
@@ -30,13 +22,53 @@ const Home = () => {
       console.error("Error fetching posts:", error);
     }
   };
+   useEffect(() => {
+     getPosts();
+   }, []);
+
   return (
     <>
       <div className="main-page">
-        <div className="banner">
-          <img src="./1.png" alt="Descriptive Text" />
-        </div>
-
+        {/* <div className="banner">
+          <img src="./banner2.jpg" alt="Descriptive Text" />
+        </div> */}
+        <Carousel>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="./bradcam.png"
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="./bradcam.png"
+              alt="Second slide"
+            />
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="./bradcam.png"
+              alt="Third slide"
+            />
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
         <div className="display-jobs">
           <div className="container">
             <div className="row">
@@ -47,19 +79,17 @@ const Home = () => {
               </div>
             </div>
 
+            {/* Card Section  to show  the jobs */}
             <div className="card-section">
               <div className="row">
-                {" "}
-                {/* Ensure this row wraps the col-md-4 elements */}
                 {posts.length === 0 ? (
                   <h2> No Record Found </h2>
                 ) : (
-                  
                   posts.slice(0, 3).map((post, index) => (
                     <div className="col-md-4" key={index}>
                       {" "}
                       {/* Wrap each card in a col-md-4 */}
-                      <Card className="text-center" style={{ width: "25rem" }}>
+                      <Card className="text-center" style={{ width: "23rem" }}>
                         <Card.Header>Company: {post.companyName}</Card.Header>
                         <Card.Body>
                           <Card.Title>{post.jobTitle}</Card.Title>
@@ -94,9 +124,9 @@ const Home = () => {
               </div>
             </div>
 
+            {/*  Button for Explore  all jobs  list  */}
             <div className="row">
               <div className="read-more">
-                {/* <button className="aplybtn"> All Jobs </button> */}
                 <Link to={"/joblisting"} className="aplybtn">
                   {" "}
                   All Jobs{" "}
@@ -107,7 +137,7 @@ const Home = () => {
         </div>
         {/*  job section end  */}
 
-        {/*  */}
+        {/*About Section */}
         <div className="whole-wrap">
           <div className="container box_1170">
             <div className="section-top-border">
@@ -186,7 +216,7 @@ const Home = () => {
               <h3 className="mb-30">Block Quotes</h3>
               <div className="row">
                 <div className="col-lg-12">
-                  <blockquote class="generic-blockquote">
+                  <blockquote className="generic-blockquote">
                     “Recently, the US Federal government banned online casinos
                     from operating in America by making it illegal to transfer
                     money to them through any US bank or payment system. As a
