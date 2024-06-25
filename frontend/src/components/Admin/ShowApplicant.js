@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Table from "react-bootstrap/Table";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../myStyles.css";
 import {Link} from "react-router-dom";
 import Sidebar from "./Sidebar";
-
 import ReactPaginate from "react-paginate";     // For Add Pagination 
 
 const AllApplications = () => {
   const [applications, setApplications] = useState([]);
-  const [editableId, setEditableId] = useState(null);
-  const [editedStatus, setEditedStatus] = useState("");
-  const [editedInterviewDate, setEditedInterviewDate] = useState(new Date());
-
+ 
   useEffect(() => {
     getApplications();
   }, []);
@@ -30,48 +25,40 @@ const AllApplications = () => {
     }
   };
 
-  //  Toggle the specific row in editable form on the basis of id
-  const toggleEditable = (id) => {
-    const rowData = applications.find((application) => application._id === id);
-    if (rowData) {
-      setEditableId(id);
-      setEditedInterviewDate("" || new Date());
-      setEditedStatus(rowData.status);
-    } else {
-      setEditedInterviewDate(new Date());
-      setEditedStatus("");
-    }
-  };
 
-  // SaveEditedApplication Function for save the edited or modified  data
-  const saveEditedApplication = (id) => {
-    const editedData = {
-      interviewDate: editedInterviewDate,
-      status: editedStatus,
-    };
-    if (!editedStatus) {
-      alert("All fields must be filled out.");
-      return;
-    }
+  //Function for set the date format
+  function formatDate(date) {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(date).toLocaleDateString("en-US", options);
+  }
 
-    axios
-      .post("/updateApplication/" + id, editedData)
-      .then((result) => {
-        console.log(result);
-        setEditableId(null);
-        setEditedInterviewDate(new Date());
-        setEditedStatus("");
-        // Update local state without reloading the page
-        const updatedApplications = applications.map((application) =>
-          application._id === id
-            ? { ...application, ...editedData }
-            : application
-        );
-        setApplications(updatedApplications);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const deleteApplicant = (id) => {
+  //   // Ask the user for confirmation before deleting
+  //   const userConfirmed = window.confirm(
+  //     "Are you sure you want to reject this application?"
+  //   );
 
+  //   // If the user clicks 'OK', proceed with deletion
+  //   if (userConfirmed) {
+  //     axios
+  //       .delete(`/deleteApplicant/` + id)
+  //       .then((result) => {
+  //         console.log(result);
+  //         // Update local state without reloading the page
+  //         const updatedApplications = applications.filter(
+  //           (application) => application._id !== id
+  //         );
+  //         setApplications(updatedApplications);
+  //         // Show a success message to the user
+  //         alert("Application rejected successfully!");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         // Show an error message to the user
+  //         alert("Failed to reject application. Please try again.");
+  //       });
+  //   }
+  // };
   const deleteApplicant = (id) => {
     // Ask the user for confirmation before deleting
     const userConfirmed = window.confirm(
@@ -84,9 +71,11 @@ const AllApplications = () => {
         .delete(`/deleteApplicant/` + id)
         .then((result) => {
           console.log(result);
-          // Update local state without reloading the page
-          const updatedApplications = applications.filter(
-            (application) => application._id !== id
+          // Update local state to reflect the soft delete without reloading the page
+          const updatedApplications = applications.map((application) =>
+            application._id === id
+              ? { ...application, isDeleted: true }
+              : application
           );
           setApplications(updatedApplications);
           // Show a success message to the user
@@ -99,6 +88,10 @@ const AllApplications = () => {
         });
     }
   };
+
+
+
+
   //  Pagination content
   const [pageNumber, setPageNumber] = useState(0);
   const postsPerPage = 10;
@@ -116,22 +109,20 @@ const AllApplications = () => {
           <div className="col-lg-2">
             <Sidebar />
           </div>
-          <div className="col-lg-10 col-md-10 col-sm-10 col-10">
-            <h1> All Applicant List </h1>
+          <div className="col-lg-9 col-md-9 col-sm-10 col-10">
+            <h1 className="text-center"> All Applicant List </h1>
             <div className="ovflhdn">
               <Table responsive striped bordered hover>
                 <thead>
                   <tr>
                     <th> S.No.</th>
                     <th> Applicant Name </th>
-                    <th> Applicant Email </th>
                     <th> Appllied Job Tilte </th>
                     <th> Company Name </th>
-                    <th> Resume Detail </th>
                     <th> Status </th>
                     <th> Interview Date </th>
                     <th> User Availability </th>
-                    <th> Cause </th>
+
                     <th> Action </th>
                   </tr>
                 </thead>
@@ -149,58 +140,21 @@ const AllApplications = () => {
                       .slice(pagesVisited, pagesVisited + postsPerPage)
                       .map((application, index) => (
                         <tr key={application._id}>
+                          {/*  Serial Number  */}
                           <td> {index + 1} </td>
-                          <td> {application.name} </td>
-                          <td> {application.email} </td>
-                          <td> {application.jobTitle} </td>
-                          <td> {application.companyName} </td>
-
+                          <td> {application.name} </td> {/* Applicant  Name  */}
+                          <td> {application.jobTitle} </td> {/*  jobTitle  */}
+                          <td> {application.companyName} </td>{" "}
+                          {/*  Applied for Company */}
+                          <td> {application.status}</td>{" "}
+                          {/*  Application Status Pending or Accpted   */}
+                          {/*  Interview Date  Start */}
                           <td>
-                            <Link
-                              to={`http://localhost:5000/files/${application.resume}`}
-                              target="_blank"
-                            >
-                              {application.resume}
-                            </Link>
+                            {application.interviewDate
+                              ? formatDate(application.interviewDate)
+                              : "Pending"}
                           </td>
-
-                          {/*  Set the User Application Status Accept or Reject  */}
-                          <td>
-                            {editableId === application._id ? (
-                              <select
-                                value={editedStatus}
-                                onChange={(e) =>
-                                  setEditedStatus(e.target.value)
-                                }
-                              >
-                                <option value="Pending"> Pending </option>
-
-                                <option value="Accepted"> Accepted </option>
-                              </select>
-                            ) : (
-                              application.status
-                            )}
-                          </td>
-
-                          {/* Schedule the new Interview Date  */}
-                          <td>
-                            {editableId === application._id ? (
-                              <DatePicker
-                                showIcon
-                                selected={editedInterviewDate}
-                                isClearable
-                                placeholderText="Select the new date"
-                                onChange={(date) =>
-                                  setEditedInterviewDate(date)
-                                }
-                              />
-                            ) : application.interviewDate ? (
-                              new Date(application.interviewDate).toDateString()
-                            ) : (
-                              "Pending"
-                            )}
-                          </td>
-
+                          {/*  Interview Date  End */}
                           {/* User Availability  */}
                           <td>
                             {" "}
@@ -208,12 +162,7 @@ const AllApplications = () => {
                               ? application.availability
                               : "Yet Not Updated"}
                           </td>
-
-                          {/*  User Cause */}
-                          <td>
-                            {application.cause ? application.cause : "No Cause"}
-                          </td>
-
+                          {/* Edit and Delete button  */}
                           <td>
                             <div
                               style={{
@@ -222,27 +171,17 @@ const AllApplications = () => {
                                 justifyContent: "space-around",
                               }}
                             >
-                              {editableId === application._id ? (
-                                <button
-                                  className="btn btn-success btn-sm me-2"
-                                  onClick={() =>
-                                    saveEditedApplication(application._id)
-                                  }
-                                >
-                                  Save
-                                </button>
-                              ) : (
-                                <button
-                                  onClick={() =>
-                                    toggleEditable(application._id)
-                                  }
+                              <button>
+                                <Link
+                                  to={"/aplicant-detail/" + application._id}
                                 >
                                   <i
-                                    className="bi bi-pencil-square"
+                                    className="bi bi-pencil-square padding-right 3"
                                     style={{ fontSize: "1.5rem" }}
                                   ></i>
-                                </button>
-                              )}
+                                </Link>
+                              </button>
+
                               <button
                                 onClick={() => deleteApplicant(application._id)}
                               >

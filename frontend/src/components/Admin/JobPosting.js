@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import Sidebar from './Sidebar';
+import "./AdminPartCSS/Job_posting.css"
  
 /* Create a JonPosting() functional component for  Posting a new jobs */ 
 const JobPosting = ()=>{

@@ -1,12 +1,23 @@
-import React from 'react'
-import "./style.css";
+import React from "react";
+import "./AdminPartCSS/Sidebar.css";
 import { Link } from "react-router-dom";
+  import Dropdown from "react-bootstrap/Dropdown";
 
 function Sidebar() {
   return (
-    <div>
+    <div class="sidebar-outer">
       <div className="sidebar">
         <h5> Welcome Admin </h5>
+
+        <div className="menu">
+          {" "}
+          {/* <h3> All Posts </h3> */}
+          <i class="bi bi-house-gear-fill m-2"></i>
+          <Link to="/adminhome" className="link">
+            Home{" "}
+          </Link>{" "}
+        </div>
+
         <div className="menu">
           {" "}
           {/* <h3> All Posts </h3> */}
@@ -26,10 +37,27 @@ function Sidebar() {
 
         <div className="menu">
           <i class="bi bi-person-lines-fill m-2"></i>
-          <Link to="/all-applicant" className="link">
-            {" "}
-            All Applicants{" "}
-          </Link>{" "}
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic">
+              Applicant List
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <Link to="/all-applicant">All Applicants </Link>
+              </Dropdown.Item>
+
+              <Dropdown.Item>
+                <Link to="/acceptedapplication">Accpted </Link>
+              </Dropdown.Item>
+
+              <Dropdown.Item>
+                <Link to="/rejectedapplication"> Rejected </Link>
+              </Dropdown.Item>
+
+          
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
 
         <div className="menu">
@@ -52,4 +80,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar
+export default Sidebar;

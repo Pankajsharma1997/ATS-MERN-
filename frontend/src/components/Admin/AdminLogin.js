@@ -11,7 +11,7 @@ const AdminLogin = () => {
     useEffect( ()=> {
     const auth = localStorage.getItem('user');
     if(auth){
-        navigate('/adminAllPosts');
+        navigate('/adminhome');
     }
     },[])
 
@@ -28,7 +28,7 @@ const AdminLogin = () => {
             console.warn(result);
             if(result.name){
                 localStorage.setItem("user",JSON.stringify(result));
-                navigate("/adminAllPosts");
+                navigate("/adminhome");
 
             }else{
                 alert("Please Enter Correct Details")

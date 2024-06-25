@@ -1,35 +1,18 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Form from "react-bootstrap/Form";
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap styling 
+import "bootstrap-icons/font/bootstrap-icons.css"; // Bootstrap Icon 
+import "react-datepicker/dist/react-datepicker.css"; // React Bootstrap Date Picker 
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import ReactPaginate from "react-paginate";
-import Table from "react-bootstrap/Table";
-
 import addNotification from "react-push-notification";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
-
-
-/**
- * 
- * @returns 
- */
-
-        
+import Table from "react-bootstrap/Table";
+import "./AdminPartCSS/Job_list.css";
+     
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
-  // const [editableId, setEditableId] = useState(null);
-  // const [editedJobTitle, setEditedJobTitle] = useState("");
-  // const [editedCompanyName, setEditedCompanyName] = useState("");
-  // const [editedJobDescription, setEditedJobDescription] = useState("");
-  // const [editedDate, setEditedDate] = useState(new Date());
-  // const [editedCloseDate, setEditedCloseDate] = useState(new Date());
-  const auth = localStorage.getItem("user");
-
-  
+ 
   useEffect(() => {
     getPosts();
   }, []);
@@ -42,74 +25,12 @@ const AllPosts = () => {
     }
   };
 
-  /**
-   * Toggle the entire row on the basis of the id in editable state
-   * @param {*} id
-   *
-   */
-  // const toggleEditable = (id) => {
-  //   const rowData = posts.find((post) => post._id === id);
-  //   if (rowData) {
-  //     setEditableId(id);
-  //     setEditedJobTitle(rowData.jobTitle);
-  //     setEditedCompanyName(rowData.companyName);
-
-  //     setEditedJobDescription(rowData.jobDescription);
-  //     setEditedDate(new Date(rowData.publishDate) || new Date());
-  //     setEditedCloseDate(new Date(rowData.closeDate) || new Date());
-  //   } else {
-  //     setEditableId(null);
-  //     setEditedJobTitle("");
-  //     setEditedCompanyName("");
-  //     setEditedJobDescription("");
-  //     setEditedDate(new Date());
-  //   }
-  // };
-
-  /**
-   * @param {*} id
-   * @returns
-   * saveEditedPost Function for save the edited or modified  data
-   */
-  // const saveEditedPost = (id) => {
-  //   const editedData = {
-  //     jobTitle: editedJobTitle,
-  //     companyName: editedCompanyName,
-  //     jobDescription: editedJobDescription,
-  //     publishDate: editedDate,
-  //     closeDate: editedCloseDate,
-  //   };
-  //   if (
-  //     !editedJobTitle ||
-  //     !editedCompanyName ||
-  //     !editedJobDescription ||
-  //     !editedDate ||
-  //     !editedCloseDate
-  //   ) {
-  //     alert("All fields must be filled out.");
-  //     return;
-  //   }
-
-  //   axios
-  //     .post("/updatePost/" + id, editedData)
-  //     .then((result) => {
-  //       console.log(result);
-  //       setEditableId(null);
-  //       setEditedJobTitle("");
-  //       setEditedCompanyName("");
-  //       setEditedJobDescription("");
-  //       setEditedDate(new Date());
-  //       setEditedCloseDate(new Date());
-  //       // Update local state without reloading the page
-  //       const updatedPosts = posts.map((post) =>
-  //         post._id === id ? { ...post, ...editedData } : post
-  //       );
-  //       setPosts(updatedPosts);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
- 
+     
+        //Function for set the date format
+  function formatDate(date) {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(date).toLocaleDateString("en-US", options);
+  }
   /**
    *
    * @param {*} id
@@ -129,9 +50,9 @@ const AllPosts = () => {
         const updatedPosts = posts.filter((post) => post._id !== id);
         setPosts(updatedPosts);
 
-      /**
-       * show the warning message when admin delete the job from the table 
-       */
+        /**
+         * show the warning message when admin delete the job from the table
+         */
         addNotification({
           title: "Warning",
           subtitle: "You have successfully Delete Job Post",
@@ -144,7 +65,7 @@ const AllPosts = () => {
       });
     }
   };
-  
+
   // Pagination content
   const [pageNumber, setPageNumber] = useState(0);
   const postsPerPage = 5;
@@ -156,7 +77,7 @@ const AllPosts = () => {
   };
 
   return (
-    <div className="rwtables">
+    <div className="job_list">
       <div className="row">
         {/*  Sidebar Section Start */}
         <div className="col-lg-2">
@@ -165,16 +86,14 @@ const AllPosts = () => {
         {/* Sidebar Section End  */}
         <div className="col-lg-10">
           <h2 className="text-center m-3 p-4"> All Job Posts </h2>
-          <div className="ovflhdn">
+          <div className="single_job">
             <Table responsive striped bordered hover>
               <thead>
                 <tr>
                   <th> Job Title </th>
                   <th> Company Name </th>
-                  {/* <th> Job Description </th> */}
                   <th> Publish Date</th>
                   <th> Last Date</th>
-
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -197,59 +116,39 @@ const AllPosts = () => {
                     )
                     .map((post) => (
                       <tr key={post._id}>
-                        {/* <td>
-                          {editableId === post._id ? (
-                            <Form.Control
-                              type="text"
-                              className="form-control"
-                              value={editedJobTitle}
-                              onChange={(e) =>
-                                setEditedJobTitle(e.target.value)
-                              }
-                            />
-                          ) : (
-                            post.jobTitle
-                          )}
-                        </td> */}
-
                         <td> {post.jobTitle} </td>
 
                         <td> {post.companyName}</td>
 
-                        <td>
-                          {" "}
-                          {post.publishDate
-                            ? new Date(post.publishDate).toDateString()
-                            : ""}
-                        </td>
+                        <td>{formatDate(post.publishDate)}</td>
 
-                        <td>
+                        {/* <td>
                           {post.closeDate
                             ? new Date(post.closeDate).toDateString()
                             : ""}{" "}
-                        </td>
+                        </td> */}
+                        <td>{formatDate(post.closeDate)}</td>
 
-                        {auth ? (
-                          <td>
-                            <button>
-                            
-                                <Link to={"/admin/editpost/" + post._id }>
-                                   <i className="bi bi-pencil-square padding-right 3"
-                                  style={{ fontSize: "1.5rem" }}> </i>
-                                </Link>
-                            </button>
-
-                            <button>
+                        <td>
+                          <button>
+                            <Link to={"/admin/editpost/" + post._id}>
                               <i
-                                className="bi bi-x-lg ms-2"
+                                className="bi bi-pencil-square padding-right 3"
                                 style={{ fontSize: "1.5rem" }}
-                                onClick={() => deletePost(post._id)}
-                              ></i>
-                            </button>
-                          </td>
-                        ) : (
-                          " "
-                        )}
+                              >
+                                {" "}
+                              </i>
+                            </Link>
+                          </button>
+
+                          <button>
+                            <i
+                              className="bi bi-x-lg ms-2"
+                              style={{ fontSize: "1.5rem" }}
+                              onClick={() => deletePost(post._id)}
+                            ></i>
+                          </button>
+                        </td>
                       </tr>
                     ))}
                 </tbody>
@@ -275,5 +174,4 @@ const AllPosts = () => {
     </div>
   );
 };
-
 export default AllPosts;

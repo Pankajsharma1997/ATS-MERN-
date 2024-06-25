@@ -4,9 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import addNotification from "react-push-notification";
 import Sidebar from "./Sidebar";
+import "./AdminPartCSS/Job_editing.css";
 
 function EditJobPost() {
   const { id } = useParams(); // Get the job ID from URL params
@@ -22,8 +24,8 @@ function EditJobPost() {
   const [editedSalary, setEditedSalary] = useState("");
   const [editedLocation, setEditedLocation] = useState(" ");
   const [editedJobNature,setEditedJobNature] = useState(" ");
-    const [editedDate, setEditedDate] = useState(new Date());
-    const [editedCloseDate, setEditedCloseDate] = useState(new Date());
+  const [editedDate, setEditedDate] = useState(new Date());
+  const [editedCloseDate, setEditedCloseDate] = useState(new Date());
   const auth = localStorage.getItem("user");
 
   useEffect(() => {
@@ -116,6 +118,16 @@ function EditJobPost() {
         setEditedDate(new Date());
         setEditedCloseDate(new Date());
 
+           addNotification({
+             title: "Success",
+             subtitle: "You have successfully Edit Job Post",
+             theme: "light",
+             closeButton: "X",
+             backgroundTop: "green",
+             colorTop: "white",
+             backgroundBottom: "lightgray",
+           });
+
    
         // update Job Post data without loading the page ;
         if (post._id === id) {
@@ -135,17 +147,28 @@ function EditJobPost() {
           </div>
           {/*Job Details Section   */}
           <div className="col-lg-10">
-            <h3 className="text-center m-4"> Edit Job Detail </h3>
+            <div className="headsection">
+              <Link
+                to="/adminAllPosts"
+                className="backbutton"
+                style={{ fontSize: "1.5rem" }}
+              >
+                {" "}
+                Back{" "}
+              </Link>{" "}
+              <h3> Edit Job Detail </h3>{" "}
+            </div>
+
             <div className="row">
               {
                 <>
                   <div className="col-md-8">
                     {/*  job Details Start  */}
                     <div className="editdetails">
-                      <h2> Job Detail </h2>
+                      <h2 className="text-center"> Job Detail </h2>
 
                       {/*  Company Introduction  */}
-                      <div className="detailpart">
+                      <div className="jobdetail">
                         <h3> Company Intro </h3>
                         {editableId === post._id ? (
                           <Form.Control
@@ -163,7 +186,7 @@ function EditJobPost() {
                       </div>
 
                       {/* Comapany Name  */}
-                      <div className="detailpart">
+                      <div className="jobdetail">
                         <h3> Company Name </h3>
                         {editableId === post._id ? (
                           <Form.Control
@@ -180,7 +203,7 @@ function EditJobPost() {
                       </div>
 
                       {/*  Job Title  */}
-                      <div className="detailpart">
+                      <div className="jobdetail">
                         <h3> Job Title </h3>
                         {editableId === post._id ? (
                           <Form.Control
@@ -194,25 +217,7 @@ function EditJobPost() {
                         )}
                       </div>
 
-                      {/*  job Description  */}
-                      {/* <div className="detailpart">
-                        <h3> Job Description </h3>
-                        {editableId === post._id ? (
-                          <Form.Control
-                            as="textarea"
-                            rows={4}
-                            className="form-control"
-                            value={editedJobDescription}
-                            onChange={(e) =>
-                              setEditedJobDescription(e.target.value)
-                            }
-                          />
-                        ) : (
-                          post.jobDescription
-                        )}
-                      </div> */}
-
-                      <div className="detailpart">
+                      <div className="jobdetail">
                         <h3> Job Description </h3>
                         {editableId === post._id ? (
                           <Form.Control
@@ -240,7 +245,7 @@ function EditJobPost() {
                       </div>
 
                       {/* Job Responsibilities*/}
-                      <div className="detailpart">
+                      <div className="jobdetail">
                         <h3> Job Responsibilities </h3>
                         {editableId === post._id ? (
                           <Form.Control
@@ -269,7 +274,7 @@ function EditJobPost() {
 
                       {/* Job Skills*/}
 
-                      <div className="detailpart">
+                      <div className="jobdetail">
                         <h3> Job Skills </h3>
                         {editableId === post._id ? (
                           <Form.Control
@@ -302,14 +307,13 @@ function EditJobPost() {
                       /* job summery Content Start  */
                       <div className="editsummery">
                         {/*  Heading Section start  */}
-                        <h2> Edit Job Summery </h2>
+                        <h2 className="text-center"> Edit Job Summery </h2>
                         {/*  Heading Section End  */}
 
                         {/* Job Summery Content Start  */}
-
                         {/*  Publish Date  */}
                         <div className="summerycontent">
-                          <strong> Publish Date : </strong>
+                          <strong> Publish Date :- </strong>
                           {editableId === post._id ? (
                             <DatePicker
                               showIcon
@@ -327,7 +331,7 @@ function EditJobPost() {
 
                         {/* Vacancy  */}
                         <div className="summerycontent">
-                          <strong> vacancy </strong>
+                          <strong> vacancy :- </strong>
                           {editableId === post._id ? (
                             <Form.Control
                               type="text"
@@ -342,7 +346,7 @@ function EditJobPost() {
 
                         {/* Salary   */}
                         <div className="summerycontent ">
-                          <strong> Salary: </strong>
+                          <strong> Salary :- </strong>
                           {editableId === post._id ? (
                             <Form.Control
                               type="text"
@@ -357,7 +361,7 @@ function EditJobPost() {
 
                         {/* Location  */}
                         <div className="summerycontent">
-                          <strong> Location </strong>
+                          <strong> Location :- </strong>
                           {editableId === post._id ? (
                             <Form.Control
                               type="text"
@@ -374,7 +378,7 @@ function EditJobPost() {
 
                         {/* Job Nature  */}
                         <div className="summerycontent">
-                          <strong> Job Nature </strong>
+                          <strong> Job Nature :- </strong>
                           {editableId === post._id ? (
                             <Form.Control
                               type="text"
@@ -391,7 +395,7 @@ function EditJobPost() {
 
                         {/*  Close Date  */}
                         <div className="summerycontent">
-                          <strong> CloseDate: </strong>
+                          <strong> CloseDate :- </strong>
                           {editableId === post._id ? (
                             <DatePicker
                               showIcon
@@ -409,6 +413,7 @@ function EditJobPost() {
                       </div>
                     }
                   </div>
+                  
                   <div>
                     {auth ? (
                       <>
