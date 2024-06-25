@@ -2,11 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
-
 const Admin = require("./DB/Admin"); // Import User Model and Schema for storing Admin information
 const Post = require("./DB/Post");
 const Subscriber = require("./DB/Subscriber");
-
 const Applicant = require("./DB/Applicant");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
@@ -20,12 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors()); //
+
 // Database connection
 dotenv.config();
 mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
 
-// Admin Part
+                                   // Admin Part
 // For  resgister the Admin
 app.post("/register", async (req, resp) => {
   try {
@@ -53,11 +52,13 @@ app.post("/register", async (req, resp) => {
     // Send the response
     resp.send(result);
   } catch (error) {
+    
     // Handle errors
     console.error("Error:", error);
     resp.status(500).send("An error occurred while registering the user.");
   }
 });
+
 
 // For login the Admin
 
@@ -125,7 +126,6 @@ app.get("/editPost/:id", async (req, resp) => {
   
 
 // Edit and Update the Posts in Database
-
 app.post("/updatePost/:id", (req, res) => {
   const id = req.params.id;
   const updateData = {
@@ -155,8 +155,8 @@ app.delete("/deletePost/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Get All applications
 
+//  Get All Applications 
 app.get("/all-applications", async (req, resp) => {
   try {
     const applications = await Applicant.find();
@@ -166,9 +166,67 @@ app.get("/all-applications", async (req, resp) => {
   }
 });
 
+// Get All Accepted Applications
+app.get("/acceptedlist", async (req, resp) => {
+  try {
+    const applications = await Applicant.find({ isDeleted: false });
+    resp.json(applications);
+  } catch (err) {
+    resp.status(500).json({ message: err.message });
+  }
+});
+
+//  Get The Rejected Applications 
+app.get("/rejectedlist", async(res, resp) => {
+  try{
+    const rejectedList = await Applicant.find({ isDeleted:true});
+    resp.json(rejectedList);
+  }
+  catch(err){
+    resp.status(500).json({message:err.message});
+  }
+});
+
+//  Get all the vacancies from the db
+app.get("/all-vacancies", async (req, resp) => {
+  try {
+    const posts = await Post.find();
+    let totalVacancies = 0;
+    let vacanciesArray = [];
+
+    posts.forEach((post) => {
+      totalVacancies += post.vacancy;
+      vacanciesArray.push(post.vacancy);
+    });
+  
+    resp.json({
+      totalVacancies: totalVacancies,
+      vacanciesArray: vacanciesArray,
+    });
+  } catch (err) {
+    resp.status(500).json({ message: err.message });
+  }
+});
+
+
 
 
 // Admin Section : Application Accept and Reject
+
+// Get Applicant  on the basis of id  from Applicant  table
+app.get( "/editApplicant/:id", async(req, resp) => {
+    try{
+      const id = req.params.id;
+      const applicant = await Applicant.findById({ _id: id});
+      resp.json(applicant);
+    }catch(err)
+    {
+        resp.status(500).json({message:err.message});
+    }
+});
+
+
+  
 
 // Edit and Update the Applications in Database
 
@@ -183,6 +241,29 @@ app.post("/updateApplication/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+// Delete Applicant  from the database
+// app.delete("/deleteApplicant/:id", (req, res) => {
+//   const id = req.params.id;
+//   Applicant.findByIdAndDelete({ _id: id })
+//     .then((post) => res.json(post))
+//     .catch((err) => res.json(err));
+// });
+
+app.delete("/deleteApplicant/:id", (req, res) => {
+  const id = req.params.id;
+  Applicant.findByIdAndUpdate(
+    id,
+    { isDeleted: true, deletedAt: new Date() },
+    { new: true }
+  )
+    .then((post) => res.json(post))
+    .catch((err) => res.json(err));
+});
+
+
+
+
+
 // Report Section
 app.get("/applicants/:companyName", async (req, res) => {
   try {
@@ -195,16 +276,10 @@ app.get("/applicants/:companyName", async (req, res) => {
   }
 });
 
-// Delete Applicant  from the database
-app.delete("/deleteApplicant/:id", (req, res) => {
-  const id = req.params.id;
-  Applicant.findByIdAndDelete({ _id: id })
-    .then((post) => res.json(post))
-    .catch((err) => res.json(err));
-});
+
 
                                            //  User Part 
-                                      //  Section 1 Registration and Login of the Applicant 
+                                    //  Section 1 Registration and Login of the Applicant 
 const bcryptSalt = bcrypt.genSaltSync(10);
 app.post("/subscriber", async (req, res) => {
   try {
@@ -269,8 +344,11 @@ app.get("/all-posts", async (req, resp) => {
   }
 });
 
+
+
 // Get Post on the basis of id  from Posts table
 app.get("/applyPost/:id", async (req, resp) => {
+
   try {
     const id = req.params.id;
     const posts = await Post.findById({ _id: id });
@@ -334,6 +412,7 @@ app.post("/applicant", upload.single("resume"), async (req, res) => {
 });
 
 
+
 // Check applicant already exist or not
 app.get("/check-applicant", async (req, res) => {
   const { name, email, jobTitle, companyName } = req.query;
@@ -342,6 +421,7 @@ app.get("/check-applicant", async (req, res) => {
     email,
     jobTitle,
     companyName,
+    isDeleted:false
   });
   res.send({ exists: !!applicantExists });
 });
@@ -395,25 +475,23 @@ app.get("/aplicationstatus/:subscriberId", async (req, res) => {
   }
 });
 
-// Add Availability status to the
-app.patch("/application/:id", async (req, res) => {
-  try {
-    const application = await Applicant.findByIdAndUpdate(
-      req.params.id,
-      { availability: req.body.availability },
 
-      { new: true }
-    );
-    if (!application) return res.sendStatus(404);
-    res.send(application);
-  } catch (error) {
-    res.sendStatus(400);
-  }
+// Get Applicant  on the basis of id  from Applicant  table
+app.get( "/editApplication/:id", async(req, resp) => {
+    try{
+      const id = req.params.id;
+      const applicant = await Applicant.findById({ _id: id});
+      resp.json(applicant);
+    }catch(err)
+    {
+        resp.status(500).json({message:err.message});
+    }
 });
 
 
-// Edit and Update the Availablity of user in the Database
 
+
+// Edit and Update the Availablity of user in the Database
 app.post("/updateApplicantAvailablity/:id", (req, res) => {
   const id = req.params.id;
   const updateData = {
@@ -440,17 +518,6 @@ app.get("/jobnature/:nature", async (req, res) => {
   }
 });
 
-// app.get( "/joblocation/:location", async (req,res) => {
-//   try{
-//     const { location,nature } = req.params;
-//     const query = location !== "All" ? { location, nature } : {};
-//     const items = await Post.find(query);
-//     res.json(items);
-//   }
-//   catch(error){
-//     res.status(500).send("Server Error")
-//   }
-// })
 
 
 app.get("/jobs/:location/:jobNature/:jobTitle", async (req, res) => {
@@ -474,30 +541,10 @@ app.get("/jobs/:location/:jobNature/:jobTitle", async (req, res) => {
   }
 });
 
-// //  job search filter 
-// app.get("/api/search", async (req, res) => {
-//   try {
-//     const search = req.query.term;
-//     const posts = await Post.find({ $text: { $search: search } });
-//     res.json(posts);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+
 
 
 // 
-
-
-
-
-
-
-
-
-
-
-
 
 
 
