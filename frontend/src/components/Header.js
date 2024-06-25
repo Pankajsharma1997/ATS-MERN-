@@ -39,6 +39,12 @@ const Nav = () => {
               <li>
                 <Link to="/status"> Application Status </Link>{" "}
               </li>
+
+              <li>
+                {" "}
+                <Link to="/joblisting"> All Jobs </Link>{" "}
+              </li>
+
               <li>
                 {" "}
                 <Link onClick={logout} to="/">
@@ -50,6 +56,10 @@ const Nav = () => {
           ) : (
             <>
               {/* User can access these links without login  */}{" "}
+              <li>
+                {" "}
+                <Link to="/joblisting"> All Jobs </Link>{" "}
+              </li>
               <li>
                 {" "}
                 <Link to="/loginsubscriber" className="nav-ul">
